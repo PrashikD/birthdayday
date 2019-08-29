@@ -100,6 +100,9 @@
     
     function addYear(){
         var y = document.getElementById('yearselect');
+        for (let k = 0; k < y.length; k++){
+            y.options[k] = null;
+        }
             for(let i = 0; i < 73; i++){
                 var c = document.createElement('option');
                 c.text = 1947 + i;
