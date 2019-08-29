@@ -11,6 +11,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <style>
     body{
+        scroll-behavior: smooth;
         background-color: #ffcce0;
     }
     h1{
@@ -27,9 +28,7 @@
     }
     
     
-
     
-
     
     
 </style>
@@ -42,7 +41,7 @@
             <label for="yearselect">Select Year:</label>
             <select id='yearselect' class="form-control">
         <!--years here when script runs -->
-        
+                <option value="0">1947</option>
             </select>
         </div>
         
@@ -50,13 +49,15 @@
             <label for="monthselect">Select Month:</label>
             <select id="monthselect" class="form-control">
             <!--months here when script runs -->
+                <option value="0">August</option>
             </select>
         </div>
         
         <div class="form-group">
-            <label for="dateselect">Select Month:</label>
+            <label for="dateselect">Select Date:</label>
             <select id="dateselect" class="form-control">
             <!--dates here when script runs -->
+                <option value="0">15</option>
             </select>
         </div>
         
@@ -107,6 +108,9 @@
     }
     function addMonth(){
         var y = document.getElementById('monthselect');
+        for (let k = 0; k < y.length; k++){
+            y.options[k] = null;
+        }
             for(let i = 0; i < 12; i++){
                 var c = document.createElement('option');
                 c.text = months[i][0];
@@ -116,9 +120,9 @@
     
     function addDay(){
         var y = document.getElementById('dateselect');
-        /*for (let k = 0; k < y.length; k++){
+        for (let k = 0; k < y.length; k++){
             y.options[k] = null;
-        }*/
+        }
         checkLeap();        
             let j = 1;
             var i = getmonth();
@@ -162,7 +166,7 @@
             document.getElementById('maint').innerHTML += "<tr>" + "\n" + "<td>" + (Number(y)+j).toString() + " - " + (i+1).toString() + 
                 " - "  +  d +  "</td>" + "\n"  +"<td>" + days[next.getDay()].toString() + "</td>" + "</tr>";
         }
-        document.getElementById('pageend').style.bottom = '0';
+        document.getElementById('pageend').style.display = "none";
     }
     
     
