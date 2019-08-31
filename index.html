@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<title> Birthday Day</title>
+<title> Prashik Deshpande</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="p.jpg" type="image/icon">
@@ -41,7 +41,6 @@
             <label for="yearselect">Select Year:</label>
             <select id='yearselect' class="form-control">
         <!--years here when script runs -->
-                <option value="0">1947</option>
             </select>
         </div>
         
@@ -49,7 +48,6 @@
             <label for="monthselect">Select Month:</label>
             <select id="monthselect" class="form-control">
             <!--months here when script runs -->
-                <option value="0">August</option>
             </select>
         </div>
         
@@ -57,7 +55,6 @@
             <label for="dateselect">Select Date:</label>
             <select id="dateselect" class="form-control">
             <!--dates here when script runs -->
-                <option value="0">15</option>
             </select>
         </div>
         
@@ -97,13 +94,10 @@
     var days = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
     document.getElementById('yearselect').addEventListener("change", addMonth);
     document.getElementById('monthselect').addEventListener("change", addDay);
-    document.getElementById('done').addEventListener("click", showDay);
+    document.getElementById('done').addEventListener("click", showDays);
     
     function addYear(){
         var y = document.getElementById('yearselect');
-        for (let k = 0; k < y.length; k++){
-            y.options[k] = null;
-        }
             for(let i = 0; i < 73; i++){
                 var c = document.createElement('option');
                 c.text = 1947 + i;
@@ -112,25 +106,34 @@
     }
     function addMonth(){
         var y = document.getElementById('monthselect');
-        for (let k = 0; k < y.length; k++){
-            y.options[k] = null;
-        }
+        if (y.options.length == 12){
             for(let i = 0; i < 12; i++){
+                y.options[i].text = months[i][0];
+            }
+        }
+        
+          else{  
+              for(let i = 0; i < 12; i++){
                 var c = document.createElement('option');
                 c.text = months[i][0];
                 y.options.add(c, i);
+                y.options[i].text = months[i][0];
             }
+        
+        }
     }
     
     function addDay(){
         var y = document.getElementById('dateselect');
-        for (let k = 0; k < y.length; k++){
-            y.options[k] = null;
+        if (y.options.length >= 28){
+                for (let k = y.options.length; k >= 0; k--){
+                    y.remove(k);
+            }
         }
         checkLeap();        
-            let j = 1;
-            var i = getmonth();
-            var maxday = months[i][1];
+        var j = 1;
+        let i = getMonth();
+        var maxday = months[i][1];
             while(1){
                 if (j > maxday){
                     break;
@@ -147,7 +150,7 @@
             months[1][1] = 29
         }
     } 
-    function getmonth(){
+    function getMonth(){
         var m = document.getElementById('monthselect').value;
         for(let i = 0; i <= 11; i++){
             if (m == months[i][0]){
@@ -155,22 +158,21 @@
             }
         }
     }
-    function showDay(){
-        
-       var y = document.getElementById('yearselect').value; 
+    function showDays(){
+        var y = document.getElementById('yearselect').value; 
        var m = document.getElementById('monthselect').value; 
         var d = document.getElementById('dateselect').value;
-        //document.getElementById('yearselect').value;
+        
         var dob = new Date();
-        var i = getmonth();
-        dob.setFullYear(y, getmonth(), d);
+        var i = getMonth();
+        dob.setFullYear(y, getMonth(), d);
         for (let j = 0; j < 100; j++){
             var next = new Date();
             next.setFullYear(y + j, i, d);
             document.getElementById('maint').innerHTML += "<tr>" + "\n" + "<td>" + (Number(y)+j).toString() + " - " + (i+1).toString() + 
                 " - "  +  d +  "</td>" + "\n"  +"<td>" + days[next.getDay()].toString() + "</td>" + "</tr>";
         }
-        document.getElementById('pageend').style.display = "none";
+        document.getElementById('pageend').style.display = 'none';
     }
     
     
